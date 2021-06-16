@@ -1,0 +1,4 @@
+vTabla: valor normal en la tabla
+SJO-HRD=Peaje (Peaje == vTabla +3)
+SJO-LMN=No pavimentada [vTabla * -1 (valor negativo)]
+HRD-LMN=Libre (vTabla)
