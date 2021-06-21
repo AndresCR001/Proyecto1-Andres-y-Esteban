@@ -118,12 +118,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CaminoMinimo.cpp" />
     <ClCompile Include="Mapa.cpp" />
+    <ClCompile Include="TodoCaminoMinimo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CaminoMinimo.h" />
+    <ClInclude Include="GrafoMatriz.h" />
     <ClInclude Include="Mapa.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Sistema.h" />
+    <ClInclude Include="TodoCaminoMinimo.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapa.resx">
