@@ -52,9 +52,10 @@ protected:
 	int numVerts; // número de vértices actual
 	Vertice* verts; // array de vértices
 	int** matAd; // matriz de adyacencia
+
 public:
 	// métodos públicos de la clase GrafoMatriz
-	GrafoMatriz(int mx)
+	GrafoMatriz::GrafoMatriz(int mx)
 	{
 		maxVerts = mx;
 		verts = new Vertice[mx]; // vector de vértices
@@ -64,16 +65,16 @@ public:
 			matAd[i] = new int[mx]; // matriz de adyacencia
 	}
 
-	GrafoMatriz()
+	GrafoMatriz::GrafoMatriz()
 	{
 		maxVerts = 1;
 		GrafoMatriz(maxVerts);
 	}
 
-	int OnumeroDeVertices() { return numVerts; }
-	void PnumeroDeVertices(int n) { numVerts = n; }
+	int GrafoMatriz::OnumeroDeVertices() { return numVerts; }
+	void GrafoMatriz::PnumeroDeVertices(int n) { numVerts = n; }
 
-	void nuevoVertice(const char* nom) 
+	void GrafoMatriz::nuevoVertice(const char* nom)
 	{
 		bool esta = numVertice(nom) >= 0;
 		if (!esta)
@@ -84,7 +85,7 @@ public:
 		}
 	}
 
-	int numVertice(const char* v)
+	int GrafoMatriz::numVertice(const char* v)
 	{
 		int i;
 		bool encontrado = false;
@@ -97,42 +98,48 @@ public:
 	}
 
 
-	void GrafoMatriz::nuevoArco(int va, int vb, int valor)
+	void GrafoMatriz::nuevoArco(int va, int vb, int valor) //con esta fincion definimos el valor del peso que posee este arco en la matriz de adyacencia
 	{
 		if (va < 0 || vb < 0 || va > numVerts || vb > numVerts)
 			throw "Vértice no existe";
 		matAd[va][vb] = valor;
 	}
 
-	bool GrafoMatriz::adyacente(int va, int vb)
+	bool GrafoMatriz::adyacente(int va, int vb)  //retorna verdadero si existe una adyacencia entre vertices, identificados por el numero
 	{
 		if (va < 0 || vb < 0 || va >= numVerts || vb >= numVerts)
 			throw "Vértice no existe";
 		return matAd[va][vb] == 1;
 	}
 
-	int Ovalor(int va, int vb)
+	int Ovalor(int va, int vb)  //retorna el valor de la adyacencia entre los puntos ingresados como parametro
 	{
 		if (va < 0 || vb < 0 || va >= numVerts || vb >= numVerts)
 			throw "Vértice no existe";
 		return matAd[va][vb];
 	}
 
-	void Pvalor(int va, int vb, int v)
+	void Pvalor(int va, int vb, int v) //define el valor de la adyacencia entre dos puntos
 	{
 		if (va < 0 || vb < 0 || va >= numVerts || vb >= numVerts)
 			throw "Vértice no existe";
 		matAd[va][vb] = v;
 	}
 
-	Vertice Overtice(int va)
+	Vertice Overtice(const char* a)//int va) //retorna el vertice que se identifica con el numero/posicion en el vector de vertices
 	{
-		if (va < 0 || va >= numVerts)
+		/*if (va < 0 || va >= numVerts)
 			throw "Vértice no existe";
+		else return verts[va];*/
+		int va;
+		va = numVertice(a);
+
+		if (va < 0 || va >= numVerts)
+			return Vertice("V");
 		else return verts[va];
 	}
 	
-	void Pvertice(int va, Vertice vert)
+	void Pvertice(int va, Vertice vert)//permite modificar el vertice, identificandolo con el indice
 	{
 		if (va < 0 || va >= numVerts)
 			throw "Vértice no existe";

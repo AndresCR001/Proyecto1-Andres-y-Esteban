@@ -1,14 +1,9 @@
 #include "Mapa.h"
 
 
-
-
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Globalization;
-
-
-
 
 
 using namespace Proyecto1; // se le puede cambiar el nombre a la clase
