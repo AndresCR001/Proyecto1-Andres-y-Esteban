@@ -119,8 +119,6 @@ namespace Proyecto1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			sistema->leerMapaDistancias();
-
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Mapa::typeid));
 			this->button16 = (gcnew System::Windows::Forms::Button());
 			this->comboBox_Origen = (gcnew System::Windows::Forms::ComboBox());
@@ -595,16 +593,20 @@ private: System::Void button16_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void button17_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 
-	if (comboBox_Origen->SelectedIndex != comboBox_Origen->SelectedIndex) {// si son diferentes llama al algoritmo 
+	if (comboBox_Origen->SelectedItem != comboBox_Destino->SelectedItem) {// si son diferentes llama al algoritmo 
 		
+		std::vector<std::string>Rutas = sistema->acomodarRutas();
+		sistema->setRutas(Rutas);
+		String^ enun = gcnew String(Rutas[0].c_str());
 
-		 // se hace el ajuste de los vertices origen y destino.
+		enun_ubicacion->Text = enun;
+		// obetenemos las rutas y el puntero 
 		sistema->getMatrizDistancias();
 		
 
 	}
 	else {
-		//de locontrario no hace nada... 
+		//de locontrario no hace nada...
 	}
 
 }
@@ -617,36 +619,43 @@ private: System::Void comboBox_Origen_SelectedIndexChanged(System::Object^ sende
 
 	if (opcion == "Heredia") {
 		b_11->BackColor = System::Drawing::Color::Yellow;
+		sistema->agregarUbicacion("Heredia");
 		grafo->nuevoVertice("Heredia");
 	}
 
 	else if (opcion == "San Jose") {
 		b_9->BackColor = System::Drawing::Color::Yellow;
+		sistema->agregarUbicacion("San Jose");
 		grafo->nuevoVertice("San Jose");
 	}
 
 	else if (opcion == "Alajuela") {
 		b_6->BackColor = System::Drawing::Color::Yellow;
+		sistema->agregarUbicacion("Alajuela");
 		grafo->nuevoVertice("Alajuela");
 	}
 
 	else if (opcion == "Cartago") {
 		b_13->BackColor = System::Drawing::Color::Yellow;
+		sistema->agregarUbicacion("Cartago");
 		grafo->nuevoVertice("Cartago");
 	}
 
 	else if (opcion == "Puntarenas") {
 		b_7->BackColor = System::Drawing::Color::Yellow;
+		sistema->agregarUbicacion("Puntarenas");
 		grafo->nuevoVertice("Puntarenas");
 	}
 
 	else if (opcion == "Limon") {
 		b_17->BackColor = System::Drawing::Color::Yellow;
+		sistema->agregarUbicacion("Limon");
 		grafo->nuevoVertice("Limon");
 	}
 	
 	else if (opcion == "Guanacaste") {
 		b_4->BackColor = System::Drawing::Color::Yellow;
+		sistema->agregarUbicacion("Guanacaste");
 		grafo->nuevoVertice("Guanacaste");
 	}
 }
@@ -657,54 +666,67 @@ private: System::Void comboBox_Destino_SelectedIndexChanged(System::Object^ send
 	String^ opcion = comboBox_Destino->Text;
 
 	if (opcion == "Heredia") {
-		b_11->BackColor = System::Drawing::Color::Red;		
+		b_11->BackColor = System::Drawing::Color::Red;	
+		sistema->agregarUbicacion("Heredia");
 		grafo->nuevoVertice("Heredia");
 	}
 
 	else if (opcion == "San Jose") {
 		b_9->BackColor = System::Drawing::Color::Red;
+		sistema->agregarUbicacion("San Jose");
 		grafo->nuevoVertice("San Jose");
 	}
 
 	else if (opcion == "Alajuela") {
 		b_6->BackColor = System::Drawing::Color::Red;
+		sistema->agregarUbicacion("Alajuela");
 		grafo->nuevoVertice("Alajuela");
 	}
 
 	else if (opcion == "Cartago") {
 		b_13->BackColor = System::Drawing::Color::Red;
+		sistema->agregarUbicacion("Cartago");
 		grafo->nuevoVertice("Cartago");
 	}
 
 	else if (opcion == "Puntarenas") {
 		b_7->BackColor = System::Drawing::Color::Red;
+		sistema->agregarUbicacion("Puntarenas");
 		grafo->nuevoVertice("Puntarenas");
 	}
 
 	else if (opcion == "Limon") {
 		b_17->BackColor = System::Drawing::Color::Red;
+		sistema->agregarUbicacion("Limon");
 		grafo->nuevoVertice("Limon");
 	}
 
 	else if (opcion == "Guanacaste") {
 		b_4->BackColor = System::Drawing::Color::Red;
+		sistema->agregarUbicacion("Guanacaste");
 		grafo->nuevoVertice("Guanacaste");
 	}
 
 }
-private: System::Void b_1_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void b_1_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
+		cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
+		Vertice actual = grafo->Overtice("1");
 
-	Vertice actual = grafo->Overtice("1");
-
-	if (actual.OnumVertice()==-1) 
-		grafo->nuevoVertice("1");
+		if (b_1->BackColor != System::Drawing::Color::Green){
 
 
-	
-	b_1->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+			if (actual.OnumVertice() == -1)
+				sistema->agregarUbicacion("1"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+				grafo->nuevoVertice("1");
+
+		b_1->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+		}
+		else if (b_1->BackColor == System::Drawing::Color::Green) {
+			b_1->BackColor = System::Drawing::Color::Gray;
+	}
 	
 }
 private: System::Void b_2_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -713,11 +735,20 @@ private: System::Void b_2_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("2");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("2");
+	if (b_2->BackColor != System::Drawing::Color::Green) {
 
-	b_2->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("2"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("2");
+
+		b_2->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_2->BackColor == System::Drawing::Color::Green) {
+		b_2->BackColor = System::Drawing::Color::Gray;
+	}
 
 
 }
@@ -727,11 +758,20 @@ private: System::Void b_3_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	Vertice actual = grafo->Overtice("3");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("3");
+	if (b_3->BackColor != System::Drawing::Color::Green) {
 
-	b_3->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("3"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("3");
+
+		b_3->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_3->BackColor == System::Drawing::Color::Green) {
+		b_3->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_4_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -740,11 +780,20 @@ private: System::Void b_4_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("Guanacaste");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("Guanacaste");
+	if (b_4->BackColor != System::Drawing::Color::Green) {
 
-	b_4->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("Guanacaste"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("Guanacaste");
+
+		b_4->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_4->BackColor == System::Drawing::Color::Green) {
+		b_4->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_5_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -753,11 +802,20 @@ private: System::Void b_5_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	Vertice actual = grafo->Overtice("5");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("5");
+	if (b_5->BackColor != System::Drawing::Color::Green) {
 
-	b_5->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("5"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("5");
+
+		b_5->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_5->BackColor == System::Drawing::Color::Green) {
+		b_5->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_6_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -766,11 +824,20 @@ private: System::Void b_6_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("Alajueja");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("Alajueja");
+	if (b_6->BackColor != System::Drawing::Color::Green) {
 
-	b_6->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("Alajuela"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("Alajuela");
+
+		b_6->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_6->BackColor == System::Drawing::Color::Green) {
+		b_6->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_7_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -779,11 +846,20 @@ private: System::Void b_7_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("Puntarenas");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("Puntarenas");
+	if (b_7->BackColor != System::Drawing::Color::Green) {
 
-	b_7->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("Puntarenas"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("Puntarenas");
+
+		b_7->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_7->BackColor == System::Drawing::Color::Green) {
+		b_7->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_8_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -792,11 +868,20 @@ private: System::Void b_8_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	Vertice actual = grafo->Overtice("8");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("8");
+	if (b_8->BackColor != System::Drawing::Color::Green) {
 
-	b_8->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("8"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("8");
+
+		b_8->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_8->BackColor == System::Drawing::Color::Green) {
+		b_8->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_9_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -805,11 +890,20 @@ private: System::Void b_9_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("San Jose");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("San Jose");
+	if (b_9->BackColor != System::Drawing::Color::Green) {
 
-	b_9->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("San Jose"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("San Jose");
+
+		b_9->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_9->BackColor == System::Drawing::Color::Green) {
+		b_9->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_10_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -818,11 +912,20 @@ private: System::Void b_10_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	Vertice actual = grafo->Overtice("10");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("10");
+	if (b_10->BackColor != System::Drawing::Color::Green) {
 
-	b_10->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("10"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("10");
+
+		b_10->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_10->BackColor == System::Drawing::Color::Green) {
+		b_10->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_11_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -831,11 +934,20 @@ private: System::Void b_11_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("Heredia");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("Heredia");
+	if (b_11->BackColor != System::Drawing::Color::Green) {
 
-	b_11->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("Heredia"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("Heredia");
+
+		b_11->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_11->BackColor == System::Drawing::Color::Green) {
+		b_11->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_12_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -844,11 +956,20 @@ private: System::Void b_12_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	Vertice actual = grafo->Overtice("12");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("12");
+	if (b_12->BackColor != System::Drawing::Color::Green) {
 
-	b_12->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("12"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("12");
+
+		b_12->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_12->BackColor == System::Drawing::Color::Green) {
+		b_12->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_13_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -857,11 +978,20 @@ private: System::Void b_13_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("Cartago");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("Cartago");
+	if (b_13->BackColor != System::Drawing::Color::Green) {
 
-	b_13->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("Cartago"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("Cartago");
+
+		b_13->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_13->BackColor == System::Drawing::Color::Green) {
+		b_13->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_14_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -870,11 +1000,20 @@ private: System::Void b_14_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("14");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("14");
+	if (b_14->BackColor != System::Drawing::Color::Green) {
 
-	b_14->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("14"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("14");
+
+		b_14->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_14->BackColor == System::Drawing::Color::Green) {
+		b_14->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_15_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -883,11 +1022,20 @@ private: System::Void b_15_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("15");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("15");
+	if (b_15->BackColor != System::Drawing::Color::Green) {
 
-	b_15->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("15"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("15");
+
+		b_15->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_15->BackColor == System::Drawing::Color::Green) {
+		b_15->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_16_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -896,11 +1044,20 @@ private: System::Void b_16_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("16");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("16");
+	if (b_16->BackColor != System::Drawing::Color::Green) {
 
-	b_16->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("16"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("16");
+
+		b_16->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_16->BackColor == System::Drawing::Color::Green) {
+		b_16->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_17_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -909,11 +1066,20 @@ private: System::Void b_17_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	Vertice actual = grafo->Overtice("Limon");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("Limon");
+	if (b_17->BackColor != System::Drawing::Color::Green) {
 
-	b_17->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("Limon"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("Limon");
+
+		b_17->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_17->BackColor == System::Drawing::Color::Green) {
+		b_17->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_18_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -922,11 +1088,20 @@ private: System::Void b_18_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	Vertice actual = grafo->Overtice("18");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("18");
+	if (b_18->BackColor != System::Drawing::Color::Green) {
 
-	b_18->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("18"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("18");
+
+		b_18->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_18->BackColor == System::Drawing::Color::Green) {
+		b_18->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
 private: System::Void b_19_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -935,27 +1110,47 @@ private: System::Void b_19_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	Vertice actual = grafo->Overtice("19");
 
-	if (actual.OnumVertice() == -1)
-		grafo->nuevoVertice("19");
+	if (b_19->BackColor != System::Drawing::Color::Green) {
 
-	b_19->BackColor = System::Drawing::Color::Green;
-	gb_condicion->Visible = true;
+
+		if (actual.OnumVertice() == -1)
+			sistema->agregarUbicacion("19"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
+			grafo->nuevoVertice("19");
+
+		b_19->BackColor = System::Drawing::Color::Green;
+		//gb_condicion->Visible = true;
+
+	}
+	else if (b_19->BackColor == System::Drawing::Color::Green) {
+		b_19->BackColor = System::Drawing::Color::Gray;
+	}
 
 }
-
+	   public: int ind=1;
 private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	//antes de borrar los valores de los check box guardarlos de alguna forma (puede ser con valores booleanos en un vector)
 	//esto con el proposito de calcular adecuadamente el peso de la ruta.
 
 
-	gb_condicion->Visible = false;
-
 	checkBox_peaje->Checked = false;
 	checkBox_lastre->Checked = false;
 	checkBox_ferri->Checked = false;
 	checkBox_congestion->Checked = false;
 	checkBox_libre->Checked = false;
+
+	std::vector<std::string> Rutas = sistema->getRutas();
+
+	String^ enun = gcnew String(Rutas[ind].c_str());
+	enun_ubicacion->Text = enun;
+	if(ind<(Rutas.size()-1))
+		ind++;
+	
+		
+	if (ind == (Rutas.size() - 1)) {
+		//aca ponemos a correr el algoritmo de Floyd - Warshall
+	}
+		
 
 }
 };
