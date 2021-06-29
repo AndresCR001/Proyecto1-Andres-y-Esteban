@@ -1,6 +1,7 @@
 #pragma once
 #include "Sistema.h"
-#include "GrafoMatriz.h"
+#include "TodoCaminoMinimo.h"
+#include <iostream>
 
 namespace Proyecto1 {
 
@@ -105,7 +106,9 @@ namespace Proyecto1 {
 
 
 	public: Sistema* sistema = new Sistema();
-		  
+	private: System::Windows::Forms::Button^ button_listo;
+	public:
+
 	private:
 		/// <summary>
 		/// Variable del diseñador necesaria.
@@ -148,6 +151,7 @@ namespace Proyecto1 {
 			this->b_8 = (gcnew System::Windows::Forms::Button());
 			this->button23 = (gcnew System::Windows::Forms::Button());
 			this->gb_condicion = (gcnew System::Windows::Forms::GroupBox());
+			this->button_listo = (gcnew System::Windows::Forms::Button());
 			this->enun_ubicacion = (gcnew System::Windows::Forms::Label());
 			this->b_confirmar = (gcnew System::Windows::Forms::Button());
 			this->checkBox_libre = (gcnew System::Windows::Forms::CheckBox());
@@ -442,6 +446,7 @@ namespace Proyecto1 {
 			// 
 			// gb_condicion
 			// 
+			this->gb_condicion->Controls->Add(this->button_listo);
 			this->gb_condicion->Controls->Add(this->enun_ubicacion);
 			this->gb_condicion->Controls->Add(this->b_confirmar);
 			this->gb_condicion->Controls->Add(this->checkBox_libre);
@@ -457,6 +462,18 @@ namespace Proyecto1 {
 			this->gb_condicion->TabStop = false;
 			this->gb_condicion->Text = L"Condicion de la ruta";
 			this->gb_condicion->Visible = false;
+			// 
+			// button_listo
+			// 
+			this->button_listo->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->button_listo->Location = System::Drawing::Point(58, 185);
+			this->button_listo->Name = L"button_listo";
+			this->button_listo->Size = System::Drawing::Size(75, 23);
+			this->button_listo->TabIndex = 7;
+			this->button_listo->Text = L"Listo";
+			this->button_listo->UseVisualStyleBackColor = true;
+			this->button_listo->Visible = false;
+			this->button_listo->Click += gcnew System::EventHandler(this, &Mapa::button_listo_Click);
 			// 
 			// enun_ubicacion
 			// 
@@ -599,9 +616,12 @@ private: System::Void button17_Click(System::Object^ sender, System::EventArgs^ 
 		sistema->setRutas(Rutas);
 		String^ enun = gcnew String(Rutas[0].c_str());
 
+		gb_condicion->Visible = true;
 		enun_ubicacion->Text = enun;
-		// obetenemos las rutas y el puntero 
-		sistema->getMatrizDistancias();
+
+		
+		
+		
 		
 
 	}
@@ -1126,12 +1146,174 @@ private: System::Void b_19_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 }
-	   public: int ind=1;
+	   public: int ind=1; // se usa para medir la cantidad de rutas (empieza en la posision 1 porque en el boton aceptar se coloco el primer enunciado)
+	public: bool F = 1;
+		 
 private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
+	std::vector<std::string> Rutas = sistema->getRutas();
+	// obetenemos las rutas y el puntero 
+	int matrizDistancias[7][7];
+	std::ifstream file("MapaDistancias.txt");
+	std::string str; // recibe la linea del archivo de texto
+	std::string delimitador = ",";
+	int fila = 0;
+	int columna = 0;
+
+
+	if (F) {
+		//leemos el archivo que contiene lo valores con las distancias (pesos) entre ubicaciones 
+		
+		while (std::getline(file, str)) {
+
+
+			size_t pos = 0;
+			std::string peso;
+			while ((pos = str.find(delimitador)) != std::string::npos) {
+				peso = str.substr(0, pos);
+				std::cout << peso << std::endl;
+
+				if (peso == "-") {
+					matrizDistancias[fila][columna] = 0;
+				}
+				else {
+					matrizDistancias[fila][columna] = std::stoi(peso);
+				}
+
+				columna++;
+				str.erase(0, pos + delimitador.length());
+			}
+			std::cout << str << std::endl;
+			if (str == "-") {
+				matrizDistancias[fila][columna] = 0;
+			}
+			else {
+				matrizDistancias[fila][columna] = std::stoi(str);
+			}
+			columna = 0;
+			fila++;
+			std::cout << "\n" << std::endl;
+			std::cout << "\n" << std::endl;
+
+
+		}//leemos la linea del archivo, esta debe ser recorrida cada coma y si el valor el distinto a "-"
+		//este valor leido será considerado para la cracion de la matriz.
+
+		F = 0;
+
+		MarshalString(enun_ubicacion->Text, str); //usamos una funcion la cual nos convierte de system sting a std string
+	
+		delimitador = "-";
+		size_t pos = 0;
+		std::string V1, V2;
+
+		//creamos el arco del primer enunciado
+		while ((pos = str.find(delimitador)) != std::string::npos) {
+			V1 = str.substr(0, pos);
+			std::cout << V1 << std::endl;
+
+			str.erase(0, pos + delimitador.length());
+		}
+		std::cout << str << std::endl;
+
+		V2 = str;
+		int peso = sistema->getValor(V1, V2, matrizDistancias);
+
+		// aqui cambiamos el valor del peso dependiendo de la condicion de la ruta, basandose en los valores de los checkedlists
+
+		if (checkBox_ferri->Checked) {
+			peso -= 50;
+		}
+		else if (checkBox_congestion->Checked) {
+			peso += 50;
+		}
+		else if (checkBox_peaje->Checked) {
+			peso += 50;
+		}
+		else if (checkBox_lastre->Checked) {
+			peso = peso*=1;
+		}
+		else if (checkBox_libre->Checked) {
+			peso += 0;
+		}
+
+
+		grafo->nuevoArco(V1.c_str(), V2.c_str(), peso); //agregamos el primer peso
+
+		String^ enun = gcnew String(Rutas[ind].c_str());
+		enun_ubicacion->Text = enun;
+	}
+	else {
+
+		delimitador = "-";
+		size_t pos = 0;
+		std::string V1, V2;
+
+
+		//agrgamos los arcos restantes
+
+		MarshalString(enun_ubicacion->Text, str); //usamos una funcion la cual nos convierte de system sting a std string}
+
+		//creamos el arco del primer enunciado
+		while ((pos = str.find(delimitador)) != std::string::npos) {
+			V1 = str.substr(0, pos);
+			std::cout << V1 << std::endl;
+
+			str.erase(0, pos + delimitador.length());
+		}
+		std::cout << str << std::endl;
+
+		V2 = str;
+		int peso = sistema->getValor(V1, V2, matrizDistancias);
+
+		if (checkBox_ferri->Checked) {
+			peso -= 50;
+		}
+		else if (checkBox_congestion->Checked) {
+			peso += 50;
+		}
+		else if (checkBox_peaje->Checked) {
+			peso += 50;
+		}
+		else if (checkBox_lastre->Checked) {
+			peso = peso *= 1;
+		}
+		else if (checkBox_libre->Checked) {
+			peso += 0;
+		}
+
+		grafo->nuevoArco(V1.c_str(), V2.c_str(), peso);
+
+		if (ind != Rutas.size()-1) {
+			ind++;
+			String^ enun = gcnew String(Rutas[ind].c_str());
+			enun_ubicacion->Text = enun;
+		}
+		else {
+
+			enun_ubicacion->Text = "Ya se acabaron las rutas" ;
+
+			checkBox_peaje->Enabled = false;
+			checkBox_lastre->Enabled = false;
+			checkBox_ferri->Enabled = false;
+			checkBox_congestion->Enabled = false;
+			checkBox_libre->Enabled = false;
+
+			button_listo->Visible = true;
+
+		}
+
+		
+
+	}
+
+	
+
+
 
 	//antes de borrar los valores de los check box guardarlos de alguna forma (puede ser con valores booleanos en un vector)
 	//esto con el proposito de calcular adecuadamente el peso de la ruta.
-
 
 	checkBox_peaje->Checked = false;
 	checkBox_lastre->Checked = false;
@@ -1139,19 +1321,38 @@ private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArg
 	checkBox_congestion->Checked = false;
 	checkBox_libre->Checked = false;
 
-	std::vector<std::string> Rutas = sistema->getRutas();
-
-	String^ enun = gcnew String(Rutas[ind].c_str());
-	enun_ubicacion->Text = enun;
-	if(ind<(Rutas.size()-1))
-		ind++;
 	
-		
-	if (ind == (Rutas.size() - 1)) {
-		//aca ponemos a correr el algoritmo de Floyd - Warshall
-	}
-		
 
+}
+	   void MarshalString(String^ s, std::string& os) {
+		   using namespace Runtime::InteropServices;
+		   const char* chars =
+			   (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+		   os = chars;
+		   Marshal::FreeHGlobal(IntPtr((void*)chars));
+	   }
+
+	   void MarshalString(String^ s, std::wstring& os) {
+		   using namespace Runtime::InteropServices;
+		   const wchar_t* chars =
+			   (const wchar_t*)(Marshal::StringToHGlobalUni(s)).ToPointer();
+		   os = chars;
+		   Marshal::FreeHGlobal(IntPtr((void*)chars));
+	   }
+private: System::Void button_listo_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	std::string Origen;
+	std::string Destino;
+
+	TodoCaminoMinimo* camino = new TodoCaminoMinimo(*grafo); //ingresamos el grafo a la clase del camino minimo
+	camino->Floyd(); // coremos el algoritmo de Floyd 
+	MarshalString(comboBox_Origen->Text, Origen); //usamos una funcion la cual nos convierte de system sting a std string}
+	MarshalString(comboBox_Destino->Text, Destino); //usamos una funcion la cual nos convierte de system sting a std string}
+	int VOrigen = grafo->numVertice(Origen.c_str());
+	int VDestino = grafo->numVertice(Destino.c_str());
+	camino->recuperaCamino(VOrigen, VDestino);
+	//camino->recuperaCamino(, );
+	gb_condicion->Visible = false;
 }
 };
 }

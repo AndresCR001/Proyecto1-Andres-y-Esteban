@@ -30,8 +30,11 @@ public:
 		nombre = nom;
 	}
 	bool igual(Vertice n)
-	{ // decide entre la igualdad de nombres
-		return nombre == n.nombre;
+	{ // decide entre la igualdad de nombres 
+		if (*(nombre) == *(n.nombre))
+			return true;
+		else
+			return false;
 	}
 	void PnumVertice(int n)
 	{ // cambia el número del vértice
@@ -98,8 +101,11 @@ public:
 	}
 
 
-	void GrafoMatriz::nuevoArco(int va, int vb, int valor) //con esta fincion definimos el valor del peso que posee este arco en la matriz de adyacencia
+	void GrafoMatriz::nuevoArco(const char* a, const char* b, int valor)
 	{
+		int va, vb;
+		va = numVertice(a);
+		vb = numVertice(b);
 		if (va < 0 || vb < 0 || va > numVerts || vb > numVerts)
 			throw "Vértice no existe";
 		matAd[va][vb] = valor;
