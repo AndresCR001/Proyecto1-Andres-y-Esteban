@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GrafoMatriz.h" />
+    <ClInclude Include="CaminoMinimo.h" />
     <ClInclude Include="Mapa.h">
       <FileType>CppForm</FileType>
     </ClInclude>

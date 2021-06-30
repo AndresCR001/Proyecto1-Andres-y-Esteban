@@ -88,6 +88,7 @@ public:
 		}
 	}
 
+
 	int GrafoMatriz::numVertice(const char* v)
 	{
 		int i;
@@ -120,9 +121,14 @@ public:
 
 	int Ovalor(int va, int vb)  //retorna el valor de la adyacencia entre los puntos ingresados como parametro
 	{
-		if (va < 0 || vb < 0 || va >= numVerts || vb >= numVerts)
-			throw "Vértice no existe";
-		return matAd[va][vb];
+		if (va < 0 || vb < 0 || va >= numVerts || vb >= numVerts) {
+			return 99999;
+		}
+		else {
+			return matAd[va][vb];
+		}
+			
+		
 	}
 
 	void Pvalor(int va, int vb, int v) //define el valor de la adyacencia entre dos puntos
@@ -152,6 +158,7 @@ public:
 		else verts[va] = vert;
 	}
 
+	int getNumVerts() { return numVerts; }
 
 private:
 	// métodos privados de la clase GrafoMariz

@@ -35,5 +35,8 @@
     <ClInclude Include="TodoCaminoMinimo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="CaminoMinimo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

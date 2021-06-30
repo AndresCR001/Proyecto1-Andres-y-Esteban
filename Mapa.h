@@ -1,6 +1,6 @@
 #pragma once
 #include "Sistema.h"
-#include "TodoCaminoMinimo.h"
+#include "CaminoMinimo.h"
 #include <iostream>
 
 namespace Proyecto1 {
@@ -619,8 +619,72 @@ private: System::Void button17_Click(System::Object^ sender, System::EventArgs^ 
 		gb_condicion->Visible = true;
 		enun_ubicacion->Text = enun;
 
+		//inicializamos los valores de la matriz de adyacencia con infinito
+		/*
+		int verts = grafo->getNumVerts();
+		int y = 0;
+		for (int x; x < verts; x++) {
+			y = 0;
+			for (y; y < verts; y++) {
+				grafo->Pvalor(x, y, 999999); //agegamos el valores segun el indice
+
+			}
+		}
+		*/
+		//inicializamos una matriz vacia para las distancias 
 		
+		int** mat;
+		mat = new int*[7];
+		for (int i = 0; i < 7; i++)
+		{
+			mat[i] = new int[7];
+		}
+
+		sistema->setMatriz(mat);
 		
+
+		//------------------------------
+		int** matrizDistancias = sistema->getMatriz();
+		std::ifstream file("MapaDistancias.txt");
+		std::string str; // recibe la linea del archivo de texto
+		std::string delimitador = ",";
+		int fila = 0;
+		int columna = 0;
+		int npeso;
+
+		while (std::getline(file, str)) {
+
+
+			size_t pos = 0;
+			std::string peso;
+			//leemos el archivo que contiene lo valores con las distancias (pesos) entre ubicaciones 
+			//leemos la linea del archivo, esta debe ser recorrida cada coma y si el valor el distinto a "-"
+			//este valor leido será considerado para la cracion de la matriz.
+			while ((pos = str.find(delimitador)) != std::string::npos) {
+				peso = str.substr(0, pos);
+
+				if (peso == "-") {
+					matrizDistancias[fila][columna] = 0;
+				}
+				else {
+					matrizDistancias[fila][columna] = std::stoi(peso);
+				}
+
+				columna++;
+				str.erase(0, pos + delimitador.length());
+			}
+			if (str == "-") {
+				matrizDistancias[fila][columna] = 0;
+			}
+			else {
+				matrizDistancias[fila][columna] = std::stoi(str);
+			}
+			columna = 0;
+			fila++;
+		}
+
+		sistema->setMatriz(matrizDistancias);
+
 		
 		
 
@@ -1154,51 +1218,14 @@ private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArg
 
 	std::vector<std::string> Rutas = sistema->getRutas();
 	// obetenemos las rutas y el puntero 
-	int matrizDistancias[7][7];
-	std::ifstream file("MapaDistancias.txt");
+	int** matrizDistancias = sistema->getMatriz();
 	std::string str; // recibe la linea del archivo de texto
 	std::string delimitador = ",";
 	int fila = 0;
 	int columna = 0;
-
+	int npeso;
 
 	if (F) {
-		//leemos el archivo que contiene lo valores con las distancias (pesos) entre ubicaciones 
-		
-		while (std::getline(file, str)) {
-
-
-			size_t pos = 0;
-			std::string peso;
-			while ((pos = str.find(delimitador)) != std::string::npos) {
-				peso = str.substr(0, pos);
-				std::cout << peso << std::endl;
-
-				if (peso == "-") {
-					matrizDistancias[fila][columna] = 0;
-				}
-				else {
-					matrizDistancias[fila][columna] = std::stoi(peso);
-				}
-
-				columna++;
-				str.erase(0, pos + delimitador.length());
-			}
-			std::cout << str << std::endl;
-			if (str == "-") {
-				matrizDistancias[fila][columna] = 0;
-			}
-			else {
-				matrizDistancias[fila][columna] = std::stoi(str);
-			}
-			columna = 0;
-			fila++;
-			std::cout << "\n" << std::endl;
-			std::cout << "\n" << std::endl;
-
-
-		}//leemos la linea del archivo, esta debe ser recorrida cada coma y si el valor el distinto a "-"
-		//este valor leido será considerado para la cracion de la matriz.
 
 		F = 0;
 
@@ -1211,35 +1238,41 @@ private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArg
 		//creamos el arco del primer enunciado
 		while ((pos = str.find(delimitador)) != std::string::npos) {
 			V1 = str.substr(0, pos);
-			std::cout << V1 << std::endl;
 
 			str.erase(0, pos + delimitador.length());
 		}
-		std::cout << str << std::endl;
 
 		V2 = str;
-		int peso = sistema->getValor(V1, V2, matrizDistancias);
+
+		npeso = sistema->getValor(V1, V2, matrizDistancias);
 
 		// aqui cambiamos el valor del peso dependiendo de la condicion de la ruta, basandose en los valores de los checkedlists
 
 		if (checkBox_ferri->Checked) {
-			peso -= 50;
+			npeso -= 50;
 		}
 		else if (checkBox_congestion->Checked) {
-			peso += 50;
+			npeso += 50;
 		}
 		else if (checkBox_peaje->Checked) {
-			peso += 50;
+			npeso += 50;
 		}
 		else if (checkBox_lastre->Checked) {
-			peso = peso*=1;
+			npeso*=1;
 		}
 		else if (checkBox_libre->Checked) {
-			peso += 0;
+			npeso += 0;
 		}
 
 
-		grafo->nuevoArco(V1.c_str(), V2.c_str(), peso); //agregamos el primer peso
+		grafo->nuevoArco(V1.c_str(), V2.c_str(), npeso); //agregamos el primer peso
+		grafo->nuevoArco(V2.c_str(), V1.c_str(), npeso);
+
+		sistema->modificar(sistema->getFila(V1.c_str()), sistema->getColumna(V2.c_str()), npeso); //modificamos el valor en la matriz de matrizDistancias
+
+		grafo->Pvalor(grafo->numVertice(V1.c_str()), grafo->numVertice(V2.c_str()), npeso); // modificamos su valor en la matriz de adyacencia 
+
+
 
 		String^ enun = gcnew String(Rutas[ind].c_str());
 		enun_ubicacion->Text = enun;
@@ -1258,32 +1291,39 @@ private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArg
 		//creamos el arco del primer enunciado
 		while ((pos = str.find(delimitador)) != std::string::npos) {
 			V1 = str.substr(0, pos);
-			std::cout << V1 << std::endl;
 
 			str.erase(0, pos + delimitador.length());
 		}
-		std::cout << str << std::endl;
 
 		V2 = str;
-		int peso = sistema->getValor(V1, V2, matrizDistancias);
+		npeso = sistema->getValor(V1, V2, matrizDistancias);
 
 		if (checkBox_ferri->Checked) {
-			peso -= 50;
+			npeso -= 50;
 		}
 		else if (checkBox_congestion->Checked) {
-			peso += 50;
+			npeso += 50;
 		}
 		else if (checkBox_peaje->Checked) {
-			peso += 50;
+			npeso += 50;
 		}
 		else if (checkBox_lastre->Checked) {
-			peso = peso *= 1;
+			npeso *=- 1;
 		}
 		else if (checkBox_libre->Checked) {
-			peso += 0;
+			npeso += 0;
 		}
 
-		grafo->nuevoArco(V1.c_str(), V2.c_str(), peso);
+
+
+		grafo->nuevoArco(V1.c_str(), V2.c_str(), npeso);
+		grafo->nuevoArco(V2.c_str(), V1.c_str(), npeso);
+
+		sistema->modificar(sistema->getFila(V1.c_str()), sistema->getColumna(V2.c_str()), npeso);
+
+		grafo->Pvalor(grafo->numVertice(V1.c_str()), grafo->numVertice(V2.c_str()), npeso); // modificamos su valor en la matriz de adyacencia 
+
+
 
 		if (ind != Rutas.size()-1) {
 			ind++;
@@ -1304,13 +1344,7 @@ private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArg
 
 		}
 
-		
-
 	}
-
-	
-
-
 
 	//antes de borrar los valores de los check box guardarlos de alguna forma (puede ser con valores booleanos en un vector)
 	//esto con el proposito de calcular adecuadamente el peso de la ruta.
@@ -1324,33 +1358,60 @@ private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArg
 	
 
 }
-	   void MarshalString(String^ s, std::string& os) {
-		   using namespace Runtime::InteropServices;
-		   const char* chars =
-			   (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-		   os = chars;
-		   Marshal::FreeHGlobal(IntPtr((void*)chars));
-	   }
+void MarshalString(String^ s, std::string& os) {
+	using namespace Runtime::InteropServices;
+	const char* chars =
+		(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+	os = chars;
+	Marshal::FreeHGlobal(IntPtr((void*)chars));
+}
 
-	   void MarshalString(String^ s, std::wstring& os) {
-		   using namespace Runtime::InteropServices;
-		   const wchar_t* chars =
-			   (const wchar_t*)(Marshal::StringToHGlobalUni(s)).ToPointer();
-		   os = chars;
-		   Marshal::FreeHGlobal(IntPtr((void*)chars));
-	   }
+void MarshalString(String^ s, std::wstring& os) {
+	using namespace Runtime::InteropServices;
+	const wchar_t* chars =
+		(const wchar_t*)(Marshal::StringToHGlobalUni(s)).ToPointer();
+	os = chars;
+	Marshal::FreeHGlobal(IntPtr((void*)chars));
+}
 private: System::Void button_listo_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	std::string Origen;
 	std::string Destino;
 
-	TodoCaminoMinimo* camino = new TodoCaminoMinimo(*grafo); //ingresamos el grafo a la clase del camino minimo
-	camino->Floyd(); // coremos el algoritmo de Floyd 
+	//--------------------------------------------------
+	for (int x = 0; x < 7; x++) {
+		for (int i = 0; i < 7; i++)
+		{
+			std::cout << sistema->getMatriz()[x][i];
+			std::cout << ",";
+		}
+		std::cout << "\n";
+	}
+	//--------------------------------------------------
+	
+	
+	CaminoMinimo* camino = new CaminoMinimo(*grafo, 0); //ingresamos el grafo a la clase del camino minimo
+	
+	//camino->Floyd(); // coremos el algoritmo de Floyd 
+
+	camino->Dijkstra(*grafo, 0);
+
 	MarshalString(comboBox_Origen->Text, Origen); //usamos una funcion la cual nos convierte de system sting a std string}
 	MarshalString(comboBox_Destino->Text, Destino); //usamos una funcion la cual nos convierte de system sting a std string}
+
+
 	int VOrigen = grafo->numVertice(Origen.c_str());
 	int VDestino = grafo->numVertice(Destino.c_str());
-	camino->recuperaCamino(VOrigen, VDestino);
+	int u;
+	int* ultimo = camino->Oultimo();
+	
+
+	camino->recuperaCamino(1);
+
+	//camino->recuperaCamino(0);
+
+
+
 	//camino->recuperaCamino(, );
 	gb_condicion->Visible = false;
 }
