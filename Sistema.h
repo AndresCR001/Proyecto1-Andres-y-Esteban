@@ -15,8 +15,8 @@ public:
 	void setMatriz(int** m) { matrizDistancias = m; }
 
 private:
-	std::vector<std::string> Ubicaciones = {}; //creamos un vector para manejar los puntos que se van a conectar en el grafo.
-	std::vector<std::string> Rutas = {};
+	std::vector<std::string> Ubicaciones; //creamos un vector para manejar los puntos que se van a conectar en el grafo.
+	std::vector<std::string> Rutas;
 
 
 
@@ -166,7 +166,7 @@ public:
 			z = 0;
 
 		}
-		//rutas.erase(rutas.begin());
+		rutas.erase(rutas.begin());
 		return rutas;
 
 	}

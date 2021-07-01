@@ -48,49 +48,50 @@ namespace Proyecto1 {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::ComboBox^ comboBox_Destino;
+	private: System::Windows::Forms::Button^ b_aceptar;
 
 
-	private: System::Windows::Forms::Button^ button17;
-	private: System::Windows::Forms::Button^ b_2;
 
-	private: System::Windows::Forms::Button^ b_1;
-	private: System::Windows::Forms::Button^ b_5;
+
+
+
+
 	private: System::Windows::Forms::Button^ b_11;
 
 
 	private: System::Windows::Forms::Button^ b_7;
 
-	private: System::Windows::Forms::Button^ b_3;
+
 	private: System::Windows::Forms::Button^ b_9;
-	private: System::Windows::Forms::Button^ b_10;
+
 	private: System::Windows::Forms::Button^ b_13;
 
 
 
 
-	private: System::Windows::Forms::Button^ b_12;
 
-	private: System::Windows::Forms::Button^ button11;
+
+
 	private: System::Windows::Forms::Button^ b_6;
-	private: System::Windows::Forms::Button^ b_15;
-	private: System::Windows::Forms::Button^ b_18;
 
 
 
-	private: System::Windows::Forms::Button^ b_16;
-	private: System::Windows::Forms::Button^ b_19;
+
+
+
+
 
 
 	private: System::Windows::Forms::Button^ b_4;
-	private: System::Windows::Forms::Button^ b_14;
+
 	private: System::Windows::Forms::Button^ b_17;
 
 
 
 
-	private: System::Windows::Forms::Button^ b_8;
 
-	private: System::Windows::Forms::Button^ button23;
+
+
 	private: System::Windows::Forms::GroupBox^ gb_condicion;
 	private: System::Windows::Forms::Label^ enun_ubicacion;
 	private: System::Windows::Forms::Button^ b_confirmar;
@@ -107,6 +108,8 @@ namespace Proyecto1 {
 
 	public: Sistema* sistema = new Sistema();
 	private: System::Windows::Forms::Button^ button_listo;
+	private: System::Windows::Forms::TextBox^ textBox_arcos;
+
 	public:
 
 	private:
@@ -128,28 +131,14 @@ namespace Proyecto1 {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->comboBox_Destino = (gcnew System::Windows::Forms::ComboBox());
-			this->button17 = (gcnew System::Windows::Forms::Button());
-			this->b_2 = (gcnew System::Windows::Forms::Button());
-			this->b_1 = (gcnew System::Windows::Forms::Button());
-			this->b_5 = (gcnew System::Windows::Forms::Button());
+			this->b_aceptar = (gcnew System::Windows::Forms::Button());
 			this->b_11 = (gcnew System::Windows::Forms::Button());
 			this->b_7 = (gcnew System::Windows::Forms::Button());
-			this->b_3 = (gcnew System::Windows::Forms::Button());
 			this->b_9 = (gcnew System::Windows::Forms::Button());
-			this->b_10 = (gcnew System::Windows::Forms::Button());
 			this->b_13 = (gcnew System::Windows::Forms::Button());
-			this->b_12 = (gcnew System::Windows::Forms::Button());
-			this->button11 = (gcnew System::Windows::Forms::Button());
 			this->b_6 = (gcnew System::Windows::Forms::Button());
-			this->b_15 = (gcnew System::Windows::Forms::Button());
-			this->b_18 = (gcnew System::Windows::Forms::Button());
-			this->b_16 = (gcnew System::Windows::Forms::Button());
-			this->b_19 = (gcnew System::Windows::Forms::Button());
 			this->b_4 = (gcnew System::Windows::Forms::Button());
-			this->b_14 = (gcnew System::Windows::Forms::Button());
 			this->b_17 = (gcnew System::Windows::Forms::Button());
-			this->b_8 = (gcnew System::Windows::Forms::Button());
-			this->button23 = (gcnew System::Windows::Forms::Button());
 			this->gb_condicion = (gcnew System::Windows::Forms::GroupBox());
 			this->button_listo = (gcnew System::Windows::Forms::Button());
 			this->enun_ubicacion = (gcnew System::Windows::Forms::Label());
@@ -159,6 +148,7 @@ namespace Proyecto1 {
 			this->checkBox_ferri = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox_lastre = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox_peaje = (gcnew System::Windows::Forms::CheckBox());
+			this->textBox_arcos = (gcnew System::Windows::Forms::TextBox());
 			this->gb_condicion->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -226,45 +216,15 @@ namespace Proyecto1 {
 			this->comboBox_Destino->Text = L"--Ubicacion--";
 			this->comboBox_Destino->SelectedIndexChanged += gcnew System::EventHandler(this, &Mapa::comboBox_Destino_SelectedIndexChanged);
 			// 
-			// button17
+			// b_aceptar
 			// 
-			this->button17->Location = System::Drawing::Point(128, 519);
-			this->button17->Name = L"button17";
-			this->button17->Size = System::Drawing::Size(75, 23);
-			this->button17->TabIndex = 24;
-			this->button17->Text = L"Aceptar";
-			this->button17->UseVisualStyleBackColor = true;
-			this->button17->Click += gcnew System::EventHandler(this, &Mapa::button17_Click);
-			// 
-			// b_2
-			// 
-			this->b_2->Location = System::Drawing::Point(354, 200);
-			this->b_2->Name = L"b_2";
-			this->b_2->Size = System::Drawing::Size(23, 23);
-			this->b_2->TabIndex = 25;
-			this->b_2->Text = L"2";
-			this->b_2->UseVisualStyleBackColor = true;
-			this->b_2->Click += gcnew System::EventHandler(this, &Mapa::b_2_Click);
-			// 
-			// b_1
-			// 
-			this->b_1->Location = System::Drawing::Point(380, 125);
-			this->b_1->Name = L"b_1";
-			this->b_1->Size = System::Drawing::Size(23, 23);
-			this->b_1->TabIndex = 26;
-			this->b_1->Text = L"1";
-			this->b_1->UseVisualStyleBackColor = true;
-			this->b_1->Click += gcnew System::EventHandler(this, &Mapa::b_1_Click);
-			// 
-			// b_5
-			// 
-			this->b_5->Location = System::Drawing::Point(528, 125);
-			this->b_5->Name = L"b_5";
-			this->b_5->Size = System::Drawing::Size(23, 23);
-			this->b_5->TabIndex = 27;
-			this->b_5->Text = L"5";
-			this->b_5->UseVisualStyleBackColor = true;
-			this->b_5->Click += gcnew System::EventHandler(this, &Mapa::b_5_Click);
+			this->b_aceptar->Location = System::Drawing::Point(128, 519);
+			this->b_aceptar->Name = L"b_aceptar";
+			this->b_aceptar->Size = System::Drawing::Size(75, 23);
+			this->b_aceptar->TabIndex = 24;
+			this->b_aceptar->Text = L"Aceptar";
+			this->b_aceptar->UseVisualStyleBackColor = true;
+			this->b_aceptar->Click += gcnew System::EventHandler(this, &Mapa::b_aceptar_Click);
 			// 
 			// b_11
 			// 
@@ -286,16 +246,6 @@ namespace Proyecto1 {
 			this->b_7->UseVisualStyleBackColor = true;
 			this->b_7->Click += gcnew System::EventHandler(this, &Mapa::b_7_Click);
 			// 
-			// b_3
-			// 
-			this->b_3->Location = System::Drawing::Point(459, 273);
-			this->b_3->Name = L"b_3";
-			this->b_3->Size = System::Drawing::Size(23, 23);
-			this->b_3->TabIndex = 30;
-			this->b_3->Text = L"3";
-			this->b_3->UseVisualStyleBackColor = true;
-			this->b_3->Click += gcnew System::EventHandler(this, &Mapa::b_3_Click);
-			// 
 			// b_9
 			// 
 			this->b_9->Location = System::Drawing::Point(618, 293);
@@ -305,16 +255,6 @@ namespace Proyecto1 {
 			this->b_9->Text = L"9";
 			this->b_9->UseVisualStyleBackColor = true;
 			this->b_9->Click += gcnew System::EventHandler(this, &Mapa::b_9_Click);
-			// 
-			// b_10
-			// 
-			this->b_10->Location = System::Drawing::Point(628, 235);
-			this->b_10->Name = L"b_10";
-			this->b_10->Size = System::Drawing::Size(33, 23);
-			this->b_10->TabIndex = 32;
-			this->b_10->Text = L"10";
-			this->b_10->UseVisualStyleBackColor = true;
-			this->b_10->Click += gcnew System::EventHandler(this, &Mapa::b_10_Click);
 			// 
 			// b_13
 			// 
@@ -326,25 +266,6 @@ namespace Proyecto1 {
 			this->b_13->UseVisualStyleBackColor = true;
 			this->b_13->Click += gcnew System::EventHandler(this, &Mapa::b_13_Click);
 			// 
-			// b_12
-			// 
-			this->b_12->Location = System::Drawing::Point(731, 200);
-			this->b_12->Name = L"b_12";
-			this->b_12->Size = System::Drawing::Size(34, 23);
-			this->b_12->TabIndex = 34;
-			this->b_12->Text = L"12";
-			this->b_12->UseVisualStyleBackColor = true;
-			this->b_12->Click += gcnew System::EventHandler(this, &Mapa::b_12_Click);
-			// 
-			// button11
-			// 
-			this->button11->Location = System::Drawing::Point(922, 457);
-			this->button11->Name = L"button11";
-			this->button11->Size = System::Drawing::Size(23, 23);
-			this->button11->TabIndex = 35;
-			this->button11->Text = L"button11";
-			this->button11->UseVisualStyleBackColor = true;
-			// 
 			// b_6
 			// 
 			this->b_6->Location = System::Drawing::Point(559, 166);
@@ -354,46 +275,6 @@ namespace Proyecto1 {
 			this->b_6->Text = L"6";
 			this->b_6->UseVisualStyleBackColor = true;
 			this->b_6->Click += gcnew System::EventHandler(this, &Mapa::b_6_Click);
-			// 
-			// b_15
-			// 
-			this->b_15->Location = System::Drawing::Point(731, 401);
-			this->b_15->Name = L"b_15";
-			this->b_15->Size = System::Drawing::Size(34, 23);
-			this->b_15->TabIndex = 37;
-			this->b_15->Text = L"15";
-			this->b_15->UseVisualStyleBackColor = true;
-			this->b_15->Click += gcnew System::EventHandler(this, &Mapa::b_15_Click);
-			// 
-			// b_18
-			// 
-			this->b_18->Location = System::Drawing::Point(807, 420);
-			this->b_18->Name = L"b_18";
-			this->b_18->Size = System::Drawing::Size(32, 23);
-			this->b_18->TabIndex = 38;
-			this->b_18->Text = L"18";
-			this->b_18->UseVisualStyleBackColor = true;
-			this->b_18->Click += gcnew System::EventHandler(this, &Mapa::b_18_Click);
-			// 
-			// b_16
-			// 
-			this->b_16->Location = System::Drawing::Point(722, 457);
-			this->b_16->Name = L"b_16";
-			this->b_16->Size = System::Drawing::Size(32, 23);
-			this->b_16->TabIndex = 39;
-			this->b_16->Text = L"16";
-			this->b_16->UseVisualStyleBackColor = true;
-			this->b_16->Click += gcnew System::EventHandler(this, &Mapa::b_16_Click);
-			// 
-			// b_19
-			// 
-			this->b_19->Location = System::Drawing::Point(816, 486);
-			this->b_19->Name = L"b_19";
-			this->b_19->Size = System::Drawing::Size(38, 23);
-			this->b_19->TabIndex = 40;
-			this->b_19->Text = L"19";
-			this->b_19->UseVisualStyleBackColor = true;
-			this->b_19->Click += gcnew System::EventHandler(this, &Mapa::b_19_Click);
 			// 
 			// b_4
 			// 
@@ -405,16 +286,6 @@ namespace Proyecto1 {
 			this->b_4->UseVisualStyleBackColor = true;
 			this->b_4->Click += gcnew System::EventHandler(this, &Mapa::b_4_Click);
 			// 
-			// b_14
-			// 
-			this->b_14->Location = System::Drawing::Point(696, 342);
-			this->b_14->Name = L"b_14";
-			this->b_14->Size = System::Drawing::Size(36, 23);
-			this->b_14->TabIndex = 42;
-			this->b_14->Text = L"14";
-			this->b_14->UseVisualStyleBackColor = true;
-			this->b_14->Click += gcnew System::EventHandler(this, &Mapa::b_14_Click);
-			// 
 			// b_17
 			// 
 			this->b_17->Location = System::Drawing::Point(807, 293);
@@ -424,25 +295,6 @@ namespace Proyecto1 {
 			this->b_17->Text = L"17";
 			this->b_17->UseVisualStyleBackColor = true;
 			this->b_17->Click += gcnew System::EventHandler(this, &Mapa::b_17_Click);
-			// 
-			// b_8
-			// 
-			this->b_8->Location = System::Drawing::Point(550, 293);
-			this->b_8->Name = L"b_8";
-			this->b_8->Size = System::Drawing::Size(23, 23);
-			this->b_8->TabIndex = 44;
-			this->b_8->Text = L"8";
-			this->b_8->UseVisualStyleBackColor = true;
-			this->b_8->Click += gcnew System::EventHandler(this, &Mapa::b_8_Click);
-			// 
-			// button23
-			// 
-			this->button23->Location = System::Drawing::Point(592, 37);
-			this->button23->Name = L"button23";
-			this->button23->Size = System::Drawing::Size(23, 23);
-			this->button23->TabIndex = 45;
-			this->button23->Text = L"button23";
-			this->button23->UseVisualStyleBackColor = true;
 			// 
 			// gb_condicion
 			// 
@@ -550,6 +402,14 @@ namespace Proyecto1 {
 			this->checkBox_peaje->Text = L"Peaje";
 			this->checkBox_peaje->UseVisualStyleBackColor = true;
 			// 
+			// textBox_arcos
+			// 
+			this->textBox_arcos->Location = System::Drawing::Point(1125, 12);
+			this->textBox_arcos->Multiline = true;
+			this->textBox_arcos->Name = L"textBox_arcos";
+			this->textBox_arcos->Size = System::Drawing::Size(158, 231);
+			this->textBox_arcos->TabIndex = 47;
+			// 
 			// Mapa
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -558,29 +418,16 @@ namespace Proyecto1 {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->ClientSize = System::Drawing::Size(1326, 609);
+			this->Controls->Add(this->textBox_arcos);
 			this->Controls->Add(this->gb_condicion);
-			this->Controls->Add(this->button23);
-			this->Controls->Add(this->b_8);
 			this->Controls->Add(this->b_17);
-			this->Controls->Add(this->b_14);
 			this->Controls->Add(this->b_4);
-			this->Controls->Add(this->b_19);
-			this->Controls->Add(this->b_16);
-			this->Controls->Add(this->b_18);
-			this->Controls->Add(this->b_15);
 			this->Controls->Add(this->b_6);
-			this->Controls->Add(this->button11);
-			this->Controls->Add(this->b_12);
 			this->Controls->Add(this->b_13);
-			this->Controls->Add(this->b_10);
 			this->Controls->Add(this->b_9);
-			this->Controls->Add(this->b_3);
 			this->Controls->Add(this->b_7);
 			this->Controls->Add(this->b_11);
-			this->Controls->Add(this->b_5);
-			this->Controls->Add(this->b_1);
-			this->Controls->Add(this->b_2);
-			this->Controls->Add(this->button17);
+			this->Controls->Add(this->b_aceptar);
 			this->Controls->Add(this->comboBox_Destino);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
@@ -606,94 +453,6 @@ private: System::Void button16_Click(System::Object^ sender, System::EventArgs^ 
 	  
 	public: int cantUbi;
 	public: GrafoMatriz* grafo = new GrafoMatriz(19); //se usa 19 por que es la mayor cantidad posible
-
-private: System::Void button17_Click(System::Object^ sender, System::EventArgs^ e) {
-	
-
-	if (comboBox_Origen->SelectedItem != comboBox_Destino->SelectedItem) {// si son diferentes llama al algoritmo 
-		
-		std::vector<std::string>Rutas = sistema->acomodarRutas();
-		sistema->setRutas(Rutas);
-		String^ enun = gcnew String(Rutas[0].c_str());
-
-		gb_condicion->Visible = true;
-		enun_ubicacion->Text = enun;
-
-		//inicializamos los valores de la matriz de adyacencia con infinito
-		/*
-		int verts = grafo->getNumVerts();
-		int y = 0;
-		for (int x; x < verts; x++) {
-			y = 0;
-			for (y; y < verts; y++) {
-				grafo->Pvalor(x, y, 999999); //agegamos el valores segun el indice
-
-			}
-		}
-		*/
-		//inicializamos una matriz vacia para las distancias 
-		
-		int** mat;
-		mat = new int*[7];
-		for (int i = 0; i < 7; i++)
-		{
-			mat[i] = new int[7];
-		}
-
-		sistema->setMatriz(mat);
-		
-
-		//------------------------------
-		int** matrizDistancias = sistema->getMatriz();
-		std::ifstream file("MapaDistancias.txt");
-		std::string str; // recibe la linea del archivo de texto
-		std::string delimitador = ",";
-		int fila = 0;
-		int columna = 0;
-		int npeso;
-
-		while (std::getline(file, str)) {
-
-
-			size_t pos = 0;
-			std::string peso;
-			//leemos el archivo que contiene lo valores con las distancias (pesos) entre ubicaciones 
-			//leemos la linea del archivo, esta debe ser recorrida cada coma y si el valor el distinto a "-"
-			//este valor leido será considerado para la cracion de la matriz.
-			while ((pos = str.find(delimitador)) != std::string::npos) {
-				peso = str.substr(0, pos);
-
-				if (peso == "-") {
-					matrizDistancias[fila][columna] = 0;
-				}
-				else {
-					matrizDistancias[fila][columna] = std::stoi(peso);
-				}
-
-				columna++;
-				str.erase(0, pos + delimitador.length());
-			}
-			if (str == "-") {
-				matrizDistancias[fila][columna] = 0;
-			}
-			else {
-				matrizDistancias[fila][columna] = std::stoi(str);
-			}
-			columna = 0;
-			fila++;
-		}
-
-		sistema->setMatriz(matrizDistancias);
-
-		
-		
-
-	}
-	else {
-		//de locontrario no hace nada...
-	}
-
-}
 
 	
 private: System::Void comboBox_Origen_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -792,72 +551,9 @@ private: System::Void comboBox_Destino_SelectedIndexChanged(System::Object^ send
 	}
 
 }
-	private: System::Void b_1_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-		Vertice actual = grafo->Overtice("1");
-
-		if (b_1->BackColor != System::Drawing::Color::Green){
-
-
-			if (actual.OnumVertice() == -1)
-				sistema->agregarUbicacion("1"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-				grafo->nuevoVertice("1");
-
-		b_1->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-		}
-		else if (b_1->BackColor == System::Drawing::Color::Green) {
-			b_1->BackColor = System::Drawing::Color::Gray;
-	}
 	
-}
-private: System::Void b_2_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-
-	Vertice actual = grafo->Overtice("2");
-
-	if (b_2->BackColor != System::Drawing::Color::Green) {
 
 
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("2"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("2");
-
-		b_2->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_2->BackColor == System::Drawing::Color::Green) {
-		b_2->BackColor = System::Drawing::Color::Gray;
-	}
-
-
-}
-private: System::Void b_3_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-	
-	Vertice actual = grafo->Overtice("3");
-
-	if (b_3->BackColor != System::Drawing::Color::Green) {
-
-
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("3"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("3");
-
-		b_3->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_3->BackColor == System::Drawing::Color::Green) {
-		b_3->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
 private: System::Void b_4_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
@@ -880,28 +576,7 @@ private: System::Void b_4_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 }
-private: System::Void b_5_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-	
-	Vertice actual = grafo->Overtice("5");
-
-	if (b_5->BackColor != System::Drawing::Color::Green) {
-
-
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("5"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("5");
-
-		b_5->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_5->BackColor == System::Drawing::Color::Green) {
-		b_5->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
 private: System::Void b_6_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
@@ -946,28 +621,7 @@ private: System::Void b_7_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 }
-private: System::Void b_8_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-	
-	Vertice actual = grafo->Overtice("8");
-
-	if (b_8->BackColor != System::Drawing::Color::Green) {
-
-
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("8"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("8");
-
-		b_8->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_8->BackColor == System::Drawing::Color::Green) {
-		b_8->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
 private: System::Void b_9_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
@@ -990,28 +644,7 @@ private: System::Void b_9_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 }
-private: System::Void b_10_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-	
-	Vertice actual = grafo->Overtice("10");
-
-	if (b_10->BackColor != System::Drawing::Color::Green) {
-
-
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("10"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("10");
-
-		b_10->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_10->BackColor == System::Drawing::Color::Green) {
-		b_10->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
 private: System::Void b_11_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
@@ -1034,28 +667,7 @@ private: System::Void b_11_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 }
-private: System::Void b_12_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-	
-	Vertice actual = grafo->Overtice("12");
-
-	if (b_12->BackColor != System::Drawing::Color::Green) {
-
-
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("12"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("12");
-
-		b_12->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_12->BackColor == System::Drawing::Color::Green) {
-		b_12->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
 private: System::Void b_13_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
@@ -1078,72 +690,8 @@ private: System::Void b_13_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 }
-private: System::Void b_14_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-
-	Vertice actual = grafo->Overtice("14");
-
-	if (b_14->BackColor != System::Drawing::Color::Green) {
 
 
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("14"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("14");
-
-		b_14->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_14->BackColor == System::Drawing::Color::Green) {
-		b_14->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
-private: System::Void b_15_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-
-	Vertice actual = grafo->Overtice("15");
-
-	if (b_15->BackColor != System::Drawing::Color::Green) {
-
-
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("15"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("15");
-
-		b_15->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_15->BackColor == System::Drawing::Color::Green) {
-		b_15->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
-private: System::Void b_16_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-
-	Vertice actual = grafo->Overtice("16");
-
-	if (b_16->BackColor != System::Drawing::Color::Green) {
-
-
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("16"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("16");
-
-		b_16->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_16->BackColor == System::Drawing::Color::Green) {
-		b_16->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
 private: System::Void b_17_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
@@ -1166,51 +714,97 @@ private: System::Void b_17_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 }
-private: System::Void b_18_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-	
-	Vertice actual = grafo->Overtice("18");
-
-	if (b_18->BackColor != System::Drawing::Color::Green) {
+private: System::Void b_aceptar_Click(System::Object^ sender, System::EventArgs^ e) {
 
 
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("18"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("18");
+	if (comboBox_Origen->SelectedItem != comboBox_Destino->SelectedItem) {// si son diferentes llama al algoritmo 
 
-		b_18->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
+		std::vector<std::string>Rutas = sistema->acomodarRutas();
+		sistema->setRutas(Rutas);
+		String^ enun = gcnew String(Rutas[0].c_str());
+
+		gb_condicion->Visible = true;
+		enun_ubicacion->Text = enun;
+
+		//inicializamos los valores de la matriz de adyacencia con infinito
+		/*
+		int verts = grafo->getNumVerts();
+		int y = 0;
+		for (int x; x < verts; x++) {
+			y = 0;
+			for (y; y < verts; y++) {
+				grafo->Pvalor(x, y, 999999); //agegamos el valores segun el indice
+
+			}
+		}
+		*/
+		//inicializamos una matriz vacia para las distancias 
+
+		int** mat;
+		mat = new int* [7];
+		for (int i = 0; i < 7; i++)
+		{
+			mat[i] = new int[7];
+		}
+
+		sistema->setMatriz(mat);
+
+
+		//------------------------------
+		int** matrizDistancias = sistema->getMatriz();
+		std::ifstream file("MapaDistancias.txt");
+		std::string str; // recibe la linea del archivo de texto
+		std::string delimitador = ",";
+		int fila = 0;
+		int columna = 0;
+		int npeso;
+
+		while (std::getline(file, str)) {
+
+
+			size_t pos = 0;
+			std::string peso;
+			//leemos el archivo que contiene lo valores con las distancias (pesos) entre ubicaciones 
+			//leemos la linea del archivo, esta debe ser recorrida cada coma y si el valor el distinto a "-"
+			//este valor leido será considerado para la cracion de la matriz.
+			while ((pos = str.find(delimitador)) != std::string::npos) {
+				peso = str.substr(0, pos);
+
+				if (peso == "-") {
+					matrizDistancias[fila][columna] = 0;
+				}
+				else {
+					matrizDistancias[fila][columna] = std::stoi(peso);
+				}
+
+				columna++;
+				str.erase(0, pos + delimitador.length());
+			}
+			if (str == "-") {
+				matrizDistancias[fila][columna] = 0;
+			}
+			else {
+				matrizDistancias[fila][columna] = std::stoi(str);
+			}
+			columna = 0;
+			fila++;
+		}
+
+		sistema->setMatriz(matrizDistancias);
+
+
+
 
 	}
-	else if (b_18->BackColor == System::Drawing::Color::Green) {
-		b_18->BackColor = System::Drawing::Color::Gray;
+	else {
+		//de locontrario no hace nada...
 	}
 
 }
-private: System::Void b_19_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	cantUbi += 1;//agregamos uno a la cantidad de Ubicaciones para saber cuantos vertices vamos a utilizar.
-	
-	Vertice actual = grafo->Overtice("19");
-
-	if (b_19->BackColor != System::Drawing::Color::Green) {
 
 
-		if (actual.OnumVertice() == -1)
-			sistema->agregarUbicacion("19"); // como el vertice que se encontro no existe se crea uno y se agrega la Ubicacion al vector
-			grafo->nuevoVertice("19");
-
-		b_19->BackColor = System::Drawing::Color::Green;
-		//gb_condicion->Visible = true;
-
-	}
-	else if (b_19->BackColor == System::Drawing::Color::Green) {
-		b_19->BackColor = System::Drawing::Color::Gray;
-	}
-
-}
-	   public: int ind=1; // se usa para medir la cantidad de rutas (empieza en la posision 1 porque en el boton aceptar se coloco el primer enunciado)
+	public: int ind=1; // se usa para medir la cantidad de rutas (empieza en la posision 1 porque en el boton aceptar se coloco el primer enunciado)
 	public: bool F = 1;
 		 
 private: System::Void b_confirmar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1396,23 +990,25 @@ private: System::Void button_listo_Click(System::Object^ sender, System::EventAr
 
 	camino->Dijkstra(*grafo, 0);
 
-	MarshalString(comboBox_Origen->Text, Origen); //usamos una funcion la cual nos convierte de system sting a std string}
-	MarshalString(comboBox_Destino->Text, Destino); //usamos una funcion la cual nos convierte de system sting a std string}
 
-
-	int VOrigen = grafo->numVertice(Origen.c_str());
-	int VDestino = grafo->numVertice(Destino.c_str());
-	int u;
-	int* ultimo = camino->Oultimo();
-	
 
 	camino->recuperaCamino(1);
 
-	//camino->recuperaCamino(0);
+	std::vector<int> arcos = camino->getArcos();
+
+	for (size_t i = 0; i < arcos.size() - 1; i++)
+	{
+		std::string V1 = grafo->nomVertice(arcos[i]);
+		std::string V2 = grafo->nomVertice(arcos[i + 1]);
+
+		std::string arc = V1 + "->" + V2;
+
+		textBox_arcos->AppendText(gcnew String(arc.c_str()));
+		textBox_arcos->Text = textBox_arcos->Text + "\r\n";
+		
+	}
 
 
-
-	//camino->recuperaCamino(, );
 	gb_condicion->Visible = false;
 }
 };

@@ -101,6 +101,11 @@ public:
 		return (i < numVerts) ? i : -1;
 	}
 
+	const char* nomVertice(int ind) {
+
+		return verts[ind].OnomVertice();
+
+	}
 
 	void GrafoMatriz::nuevoArco(const char* a, const char* b, int valor)
 	{

@@ -6,6 +6,7 @@ protected:
 	int* ultimo; // array de predecesores
 	int* D; // array de distancias mínimas
 private:
+	std::vector<int> arcos;
 	int s, n; // vértice origen y número de vértices
 public:
 	CaminoMinimo(GrafoMatriz g, int origen); // constructor
@@ -13,6 +14,7 @@ public:
 	void recuperaCamino(int v);
 	int* OdistanciaMinima();
 	int* Oultimo();
+	std::vector<int> getArcos() { return arcos; }
 private:
 	int minimo(bool F[]); // metodo privado usado por dijkstra
 };
@@ -73,10 +75,14 @@ void CaminoMinimo::recuperaCamino(int v)
 	if (v != s)
 	{
 		recuperaCamino(anterior); // vuelve al último del último
-		std:: cout << v << " V <--";
+		std:: cout << v << " V <--" << std::endl;
+		arcos.push_back(v);
+
 	}
-	else
-		std::cout << s;
+	else {
+		std::cout << s << std::endl;
+		arcos.push_back(s);
+	}
 }
 
 int* CaminoMinimo::OdistanciaMinima() { return D; }
