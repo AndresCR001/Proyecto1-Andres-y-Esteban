@@ -442,17 +442,45 @@ namespace Proyecto1 {
 
 		}
 #pragma endregion
-	
+	public: GrafoMatriz* grafo = new GrafoMatriz(19); //se usa 19 por que es la mayor cantidad posible
 private: System::Void button16_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	comboBox_Origen->Text= "--Ubicacion--";
 	comboBox_Destino->Text = "--Ubicacion--";
 
+	GrafoMatriz* nuevoGrafo = new GrafoMatriz(19);
+	Sistema* nuevoSistema = new Sistema();
+
+	grafo = nuevoGrafo;
+	sistema = nuevoSistema;
+
+	b_11->BackColor = System::Drawing::Color::Gray;
+	b_9->BackColor = System::Drawing::Color::Gray;
+	b_7->BackColor = System::Drawing::Color::Gray;
+	b_13->BackColor = System::Drawing::Color::Gray;
+	b_6->BackColor = System::Drawing::Color::Gray;
+	b_4->BackColor = System::Drawing::Color::Gray;
+	b_17->BackColor = System::Drawing::Color::Gray;
+
+	textBox_arcos->Text = " ";
+
+
+	checkBox_peaje->Enabled = true;
+	checkBox_lastre->Enabled = true;
+	checkBox_ferri->Enabled = true;
+	checkBox_congestion->Enabled = true;
+	checkBox_libre->Enabled = true;
+
+	F = 1;
+	ind = 1;
+
+	button_listo->Visible = false;
+
 
 }
 	  
 	public: int cantUbi;
-	public: GrafoMatriz* grafo = new GrafoMatriz(19); //se usa 19 por que es la mayor cantidad posible
+	
 
 	
 private: System::Void comboBox_Origen_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -728,17 +756,23 @@ private: System::Void b_aceptar_Click(System::Object^ sender, System::EventArgs^
 		enun_ubicacion->Text = enun;
 
 		//inicializamos los valores de la matriz de adyacencia con infinito
-		/*
+		
 		int verts = grafo->getNumVerts();
 		int y = 0;
 		for (int x; x < verts; x++) {
 			y = 0;
 			for (y; y < verts; y++) {
-				grafo->Pvalor(x, y, 999999); //agegamos el valores segun el indice
+				if (x == y) {
+					grafo->Pvalor(x, y, 0); //agegamos el valores segun el indice
+				}
+				else {
+					grafo->Pvalor(x, y, 999999); //agegamos el valores segun el indice
+				}
+				
 
 			}
 		}
-		*/
+		
 		//inicializamos una matriz vacia para las distancias 
 
 		int** mat;
@@ -989,6 +1023,8 @@ private: System::Void button_listo_Click(System::Object^ sender, System::EventAr
 	//camino->Floyd(); // coremos el algoritmo de Floyd 
 
 	camino->Dijkstra(*grafo, 0);
+
+	int* ultimo =camino->Oultimo();
 
 
 
